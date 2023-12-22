@@ -1,0 +1,39 @@
+class Solution {
+private:
+    long long  checking(int midIndex, vector<int> v){
+        int n = v.size();
+        long long  count{0};
+        for(int i{0}; i < n; i++){
+            if(v[i] <= midIndex)count++;
+            else{
+                long long  quotient = v[i]/midIndex;
+                long long  remainder = v[i]%midIndex;
+                if(remainder == 0)count += quotient;
+                else count += (quotient + 1);
+            }
+        }
+
+        return count;
+    }
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n = piles.size();
+        long long  maxEle{piles[0]};
+        for(int i{0}; i < n; i++){
+            if(piles[i] > maxEle)maxEle = piles[i];
+        }
+
+        long long  start{1}, end{maxEle}, ans{0};
+        while(start <= end){
+            long long  midIndex = start + (end - start)/2;
+            long long  temp = checking(midIndex, piles);
+            if(temp <= h){
+                ans = midIndex;
+                end = midIndex - 1;
+            }else start = midIndex + 1;
+        }
+
+        return ans;
+        
+    }
+};
