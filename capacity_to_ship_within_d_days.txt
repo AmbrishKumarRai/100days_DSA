@@ -1,0 +1,41 @@
+class Solution {
+private:
+    bool possible(vector<int> arr, int midIndex, int days){
+        int n = arr.size();
+        int sum{0}, d{0};
+        for(int i{0}; i< n; i++){
+            sum += arr[i];
+            if(sum > midIndex){
+                if(i == 0)return 0;
+                else{
+                    d++;
+                    sum = arr[i];
+                }
+            }
+            if(sum > midIndex)return 0;
+        }
+        if(sum != 0) d++;
+        if(d <= days)return  1;
+        return 0;
+    }
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+        int n = weights.size();
+        int minEle{weights[0]}, sum{0};
+        for(int i{0}; i < n; i++){
+            if(weights[i] < minEle)minEle = weights[i];
+            sum += weights[i];
+        }
+
+        int start{minEle}, end{sum};
+        while(start <= end){
+            int midIndex = start + (end - start)/2;
+            if(possible(weights, midIndex, days)){
+                 end = midIndex - 1;
+            }else start = midIndex + 1;
+        }
+
+        return start;
+        
+    }
+};
