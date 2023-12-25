@@ -1,0 +1,33 @@
+class Solution {
+private:
+    int counting(vector<int> nums, int midIndex){
+        int count{1}, sum{0};
+        for(int i{0}; i < nums.size(); i++){
+            if(sum + nums[i] <= midIndex)sum += nums[i];
+            else{
+                count++;
+                sum = nums[i];
+            }
+        }
+
+        return count;
+    }
+public:
+    int splitArray(vector<int>& nums, int k) {
+        int n = nums.size();
+        int maxE = *max_element(nums.begin(), nums.end());
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+
+        int start{maxE}, end{sum};
+        while(start <= end){
+            int midIndex = start + (end - start)/2;
+            int count = counting(nums, midIndex);
+            if(count <= k)end = midIndex - 1;
+            else start = midIndex + 1;
+        }
+
+        return start;
+
+        
+    }
+};
