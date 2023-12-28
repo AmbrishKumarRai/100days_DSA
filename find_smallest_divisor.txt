@@ -1,0 +1,30 @@
+class Solution {
+private:
+    int totalSum(vector<int> arr, int midIndex){
+        int sum{0};
+        for(int i{0}; i < arr.size(); i++){
+            sum += ceil( (double)arr[i]/(double)midIndex );
+        }
+        return sum;
+
+    }
+public:
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        int n = nums.size();
+        int maxEle{nums[0]};
+        for(int i{0}; i < n ; i++){
+            if(nums[i] > maxEle)maxEle = nums[i];
+        }
+
+        int start{1}, end{maxEle};
+        while(start <= end){
+            int midIndex = start + (end - start)/2;
+            int midIndexSum = totalSum(nums, midIndex);
+            if(midIndexSum <= threshold)end = midIndex - 1;
+            else start = midIndex + 1;
+        }
+
+        return start;
+        
+    }
+};
