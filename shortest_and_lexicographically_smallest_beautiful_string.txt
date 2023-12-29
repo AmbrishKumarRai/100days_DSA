@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string shortestBeautifulSubstring(string s, int k) {
+        string beautifulString{}, resultantString{};
+        int count{0};
+        for(int i{0}; i < s.length(); i++){
+            for(int j{i}; j < s.length(); j++){
+                if(s[j] == '1'){
+                    count++;
+                }
+                resultantString += s[j];
+                if(count == k) break;
+            }
+            if(beautifulString.length() == 0 && count == k) beautifulString = resultantString;
+            else if(resultantString.length() < beautifulString.length() && count == k) beautifulString = resultantString;
+            else if(resultantString.length() == beautifulString.length() && count == k){
+                int equal = resultantString.compare(beautifulString);
+                if(equal < 0) beautifulString = resultantString;
+                
+            }
+            
+            count = 0;
+            resultantString = "";
+        }
+        
+        
+        return beautifulString;
+        
+    }
+};
