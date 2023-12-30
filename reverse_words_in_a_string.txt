@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        int n = s.length();
+
+        stringstream str{s};
+        vector<string> myVec{};
+        string word;
+        while(str >> word )myVec.push_back(word);
+
+        int m = myVec.size();
+        string ans{};
+        for(int i{m - 1}; i >= 0; i--){
+            if(i != 0){
+                ans += myVec[i];
+                ans += " ";
+            }else{
+                ans += myVec[i];
+            }
+        }
+
+        return ans;
+        
+    }
+};
