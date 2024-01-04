@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<string> getWordsInLongestSubsequence(int n, vector<string>& words, vector<int>& groups) {
+        vector<string> longestSub{};
+        int j{0};
+        longestSub.push_back(words[j]);
+        for(int i{1}; i < n; i++){
+            if(groups[i] != groups[j]){
+                longestSub.push_back(words[i]);
+                j = i;
+            }
+        }
+        
+        return longestSub;
+        
+    }
+};
