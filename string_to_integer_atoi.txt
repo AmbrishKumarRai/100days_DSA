@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int length = s.length();
+        int firstNumberIndex{0};
+        bool positive{true},negative{false};
+        for(int i{0}; i < length; i++){
+            if(s[i] != ' '){
+                if(s[i] == '+'){
+                    positive = true;
+                    negative = false;
+                    i++;
+                }else if(s[i] == '-'){
+                    negative = true;
+                    positive = false;
+                    i++;
+                }
+                firstNumberIndex = i;
+                break;
+            }
+        }
+
+        if(firstNumberIndex >= length) return 0;
+
+        double ans{0};
+        for(int i{firstNumberIndex}; i < length; i++){
+            if(s[i] >= '0' && s[i] <= '9'){
+                int number = s[i] - '0';
+                ans = ans*10 + number;
+
+            }else break;
+        }
+
+        if(positive) return ans >= INT_MAX ? INT_MAX : ans;
+        return -1*ans <= INT_MIN ? INT_MIN : -1*ans;
+        
+    }
+};
