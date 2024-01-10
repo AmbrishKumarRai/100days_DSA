@@ -1,0 +1,28 @@
+class Solution {
+private:
+    string expandFromCentre(int left, int right, string s){
+        int n = s.length();
+        while(left >= 0 && right < n && s[left] == s[right]){
+            left--;
+            right++;
+        }
+        return s.substr(left + 1, right - left - 1);
+    }
+public:
+    string longestPalindrome(string s) {
+        int n = s.length();
+        if(n <= 1)return s;
+        
+        string longestString{s[0]};
+        for(int i{0}; i < n - 1; i++){
+            string odd = expandFromCentre(i, i, s);
+            string even = expandFromCentre(i, i + 1, s);
+
+            if(odd.length() > longestString.length())longestString = odd;
+            if(even.length() > longestString.length())longestString = even;
+        }
+
+        return longestString;
+        
+    }
+};
