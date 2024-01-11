@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minMovesToCaptureTheQueen(int a, int b, int c, int d, int e, int f) {
+        int hookMoves{INT_MAX}, bishopMoves{INT_MAX};
+        
+        //hook moves
+        if( a != e && b != f )hookMoves = 2;
+        else{
+            if(a == e){
+                if(a == c && (d > min(b,f) && d < max(b,f)))hookMoves = 2;
+                else hookMoves = 1;
+            }else{
+                if(b == d && (c > min(a,e) && c < max(a,e)))hookMoves = 2;
+                else hookMoves = 1;
+                
+            }
+        }
+        
+        
+        //bishop moves
+        if( abs(c - e) == abs(d - f) ){
+            if( abs(a - c) == abs(b - d) && (a > min(c,e) && a < max(c,e)) ) bishopMoves = 2;
+            else bishopMoves = 1;
+        }
+        
+        return min(hookMoves, bishopMoves);
+        
+        
+    }
+};
