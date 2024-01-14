@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool closeStrings(std::string word1, std::string word2) {
+        std::vector<int> hashTable1(26, 0);
+        std::vector<int> hashTable2(26, 0);
+
+        for (char ch : word1) {
+            hashTable1[ch - 'a']++;
+        }
+
+        for (char ch : word2) {
+            hashTable2[ch - 'a']++;
+        }
+
+        for (int i = 0; i < 26; i++) {
+            if ((hashTable1[i] == 0 && hashTable2[i] != 0) || (hashTable1[i] != 0 && hashTable2[i] == 0)) {
+                return false;
+            }
+        }
+
+        std::sort(hashTable1.begin(), hashTable1.end());
+        std::sort(hashTable2.begin(), hashTable2.end());
+
+        for (int i = 0; i < 26; i++) {
+            if (hashTable1[i] != hashTable2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
