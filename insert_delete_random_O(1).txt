@@ -1,0 +1,33 @@
+class RandomizedSet {
+public:
+   set<int> obj1;
+public:
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(obj1.find(val) != obj1.end()){
+            return false;
+        }else{
+            obj1.insert(val);
+            return true;
+        }
+
+        
+    }
+    
+    bool remove(int val) {
+        if(obj1.find(val) != obj1.end()){
+            obj1.erase(val);
+            return true;
+        }else return false;
+        
+    }
+    
+    int getRandom() {
+        int n = rand() % obj1.size();
+        return *next(obj1.begin(), n);
+        
+    }
+};
