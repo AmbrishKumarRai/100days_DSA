@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        vector<int> alternateArray;
+        int positivePointer{0}, negativePointer{0}, position{1};
+
+        while(positivePointer <= nums.size() && negativePointer <= nums.size()){
+            if(position % 2 == 0){
+                if(nums[negativePointer] < 0){
+                    alternateArray.push_back(nums[negativePointer]);
+                    position++;
+                }
+                negativePointer++;
+            }else{
+                if(nums[positivePointer] > 0){
+                    alternateArray.push_back(nums[positivePointer]);
+                    position++;
+                }
+                positivePointer++;
+            }
+            if(position > nums.size()) break;
+        }
+
+        return alternateArray;
+        
+    }
+};
