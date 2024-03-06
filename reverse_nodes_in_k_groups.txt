@@ -1,0 +1,58 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+     
+public:
+    void reverse(int i, int j, vector<int> &ans){
+        while(i < j){
+            swap(ans[i], ans[j]);
+            i++;
+            j--;
+        }
+        return;
+    }
+    ListNode *convertToLL(vector<int> ans){
+        ListNode *head = new ListNode(ans[0]);
+        ListNode *temp = head;
+        for(int i{1}; i < ans.size(); i++){
+            ListNode *newNode = new ListNode(ans[i]);
+            temp->next = newNode;
+            temp = newNode;
+        }
+        return head;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        vector<int> myVec;
+        ListNode *temp = head;
+        while(temp){
+            myVec.push_back(temp->val);
+            temp = temp->next;
+        }
+        int trav = k;
+        int n = myVec.size();
+        int i{0}, j{0};
+        int count{0};
+        while(j < n){
+            if(n - count < k)break;
+            trav = k;
+            while(trav--)j++;
+            int firstPointer = i;
+            int secondPointer = j - 1;
+            reverse(firstPointer, secondPointer, myVec);
+            i = j;
+            count += k;
+        }
+
+        ListNode *newHead = convertToLL(myVec);
+        return newHead;
+        
+    }
+};
