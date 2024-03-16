@@ -1,0 +1,25 @@
+class Solution {
+public:
+    long long mod = 1000000007;
+    long long binaryExponential(long long a, long long b){
+        if(b == 0)return 1;
+        long long res = binaryExponential(a, b/2);
+        res = res * res;
+        res %= mod;
+        if(b % 2 == 1){
+            res = res * a;
+        }  
+        res %= mod;
+        return res;
+    }
+    int countGoodNumbers(long long n){
+        int count{0};
+        long long oddIndices = (n/2);
+        long long evenIndices = (n/2)+(n%2);
+        count = (binaryExponential(5, evenIndices)*binaryExponential(4, oddIndices))%mod;
+        return count;
+
+
+        
+    }
+};
