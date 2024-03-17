@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void helper(int n, string &str, int totalOpen, int totalClosed, int length, vector<string> &ans){
+        if(totalOpen == 0 && totalClosed == 0){
+            ans.push_back(str);
+            return;
+        }
+
+        if(totalOpen == totalClosed){
+            str[length] = '(';
+            helper(n, str, totalOpen - 1, totalClosed, length + 1, ans);
+        }else{
+            if(totalOpen > 0){
+                str[length] = '(';
+                helper(n, str, totalOpen - 1, totalClosed, length + 1, ans);
+            }
+            if(totalClosed > 0){
+                str[length] = ')';
+                helper(n, str, totalOpen, totalClosed - 1, length + 1, ans);
+            }
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        string str(2*n, '0');
+        int totalOpen = n, totalClosed = n;
+        str[0] = '(';
+        totalOpen = totalOpen - 1;
+        helper(n, str, totalOpen, totalClosed, 1, ans);
+        return ans;
+    }
+};
